@@ -38,7 +38,16 @@ namespace RestaurantHR_App.Views
 
         private void OpenAddAttendance_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("نافذة إضافة تسجيل دوام سريع.", "إضافة حضور جديد", MessageBoxButton.OK, MessageBoxImage.Information);
+            // فتح نافذة الإدخال الجديدة التي برمجناها
+            var addWindow = new AddAttendanceWindow();
+            
+            // إذا قام المستخدم بالحفظ وأغلقت النافذة بنجاح (DialogResult == true)
+            if (addWindow.ShowDialog() == true)
+            {
+                // تحديث الجدول والإحصائيات فوراً لتعكس البيانات الجديدة بدون إعادة تشغيل البرنامج!
+                _vm.LoadStats(); 
+                _vm.FilterData("Today"); 
+            }
         }
 
         private void ExportExcel_Click(object sender, RoutedEventArgs e)
